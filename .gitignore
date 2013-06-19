@@ -4,3 +4,6 @@
 *.jar
 *.war
 *.ear
+
+# Silly Intellij Files #
+.idea/
