@@ -4,6 +4,9 @@
     <libelement value="jar://$MODULE_DIR$/libs/gdx-backend-lwjgl.jar!/" />
     <libelement value="jar://$MODULE_DIR$/libs/gdx-backend-lwjgl-natives.jar!/" />
     <libelement value="jar://$MODULE_DIR$/libs/gdx-natives.jar!/" />
+    <libelement value="file://libs/gdx-backend-lwjgl.jar" />
+    <libelement value="file://libs/gdx-backend-lwjgl-natives.jar" />
+    <libelement value="file://libs/gdx-natives.jar" />
     <varelement var="file://$PARENT-1-PROJECT_LOC$/SubtleLion-android/assets" value="linksrc:assets" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
@@ -22,35 +25,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="SubtleLion" />
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="module-library">
-      <library name="gdx-backend-lwjgl.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/gdx-backend-lwjgl.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/libs/gdx-backend-lwjgl-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="gdx-backend-lwjgl-natives.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/gdx-backend-lwjgl-natives.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="gdx-natives.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/gdx-natives.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" exported="" name="gdx-backend-lwjgl" level="project" />
+    <orderEntry type="library" exported="" name="gdx-backend-lwjgl-natives" level="project" />
+    <orderEntry type="library" exported="" name="gdx-natives" level="project" />
   </component>
 </module>
 
