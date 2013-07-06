@@ -7,18 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$USER_HOME$/Desktop/libgdx" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="file://$USER_HOME$/Desktop/libgdx/docs/api" />
-        </JAVADOC>
-        <SOURCES />
-        <jarDirectory url="file://$USER_HOME$/Desktop/libgdx" recursive="false" />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" exported="" name="libgdx" level="project" />
   </component>
 </module>
 
