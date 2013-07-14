@@ -1,10 +1,23 @@
-*.class
+# Compiled stuff
+*.o
+*.a
+*.so
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# Folders
+_obj
+_test
+pkg
 
-# Silly Intellij Files #
-workspace.xml
-bin/
+# Architecture specific extensions/prefixes
+*.[568vq]
+[568vq].out
+
+*.cgo1.go
+*.cg02.c
+_cgo_defun.c
+_cgo_gotypes.go
+_cgo_export.*
+
+_testmain.go
+
+*.exe
