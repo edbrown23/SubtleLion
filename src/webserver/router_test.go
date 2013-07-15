@@ -5,5 +5,5 @@ import (
 )
 
 func TestRouter(t *testing.T) {
-    Testfunc()
+    
 }

@@ -1,9 +1,15 @@
 package main
 
 import (
-    "subtlelion"
+    "webserver"
 )
 
 func main() {
-    subtlelion.Testfunc()
+    w := webserver.NewUrls()
+    w.RegisterCallback("hello", test)
+    
+}
+
+func test() {
+
 }
