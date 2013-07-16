@@ -15,26 +15,26 @@ type regexpCallback struct {
 }
 
 
-type urls struct {
+type callbackHandler struct {
     patterns map[string]regexpCallback
 }
 
 // Should not be exposed
-func Newurls() *urls {
-    urls := new(urls)
-    urls.patterns = make(map[string]regexpCallback)
-    return urls
+func newcallbackHandler() *callbackHandler {
+    cbh := new(callbackHandler)
+    cbh.patterns = make(map[string]regexpCallback)
+    return cbh
 }
 
 // Should be exposed, not tied to urls, probably to Webserver
-func (urls *urls) RegisterCallback(url string, callback interface{}) error {
+func (cbh *callbackHandler) registerCallback(url string, callback interface{}) error {
     rexp, error := regexp.Compile(url)
     if (error != nil) {
         return error
     }
     rexpcall := regexpCallback{rexp, callback}
 
-    urls.patterns[url] = rexpcall
+    cbh.patterns[url] = rexpcall
 
     return nil
 }
