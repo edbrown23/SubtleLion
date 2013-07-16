@@ -10,5 +10,5 @@ func TestRegisterCallback(t *testing.T) {
 }
 
 func testFunc() {
-    
+
 }
