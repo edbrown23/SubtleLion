@@ -1,15 +1,16 @@
 package main
 
 import (
+    "fmt"
     "webserver"
 )
 
 func main() {
-    w := webserver.NewUrls()
+    w := webserver.NewRouter()
     w.RegisterCallback("hello", test)
-    
+    w.RouteRequest("hello")
 }
 
-func test() {
-
+func test(i int) {
+    fmt.Println(i)
 }

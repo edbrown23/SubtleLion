@@ -1,6 +1,7 @@
 package webserver
 
 import (
+    "errors"
     "regexp"
 )
 
@@ -37,4 +38,13 @@ func (cbh *callbackHandler) registerCallback(url string, callback interface{}) e
     cbh.patterns[url] = rexpcall
 
     return nil
+}
+
+func (cbh *callbackHandler) findCallback(url string) (interface{}, error) {
+    rc, found := cbh.patterns[url]
+
+    if !found {
+        return nil, errors.New("Callback matching " + url + " does not exist")
+    }
+    return rc.callback , nil
 }
