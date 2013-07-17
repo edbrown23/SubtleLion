@@ -1,7 +1,7 @@
 package webserver
 
 import (
-    "fmt"
+    "net/http"
     "reflect"
 )
 
@@ -11,7 +11,7 @@ Wires the capture groups from a url's regex to the callbacks arguments
 */
 
 type router struct {
-    *callbackHandler
+    cbh *callbackHandler
 }
 
 func NewRouter() *router {
@@ -30,8 +30,8 @@ func (r *router) RegisterCallback(url string, callback interface{}) error {
     return nil
 }
 
-func (r *router) RouteRequest(url string) {
-    cb, err := r.findCallback(url)
+func (r *router) routeRequest(req *http.Request) string {
+    cb, err := r.cbh.findCallback(req.URL.Path)
     if err != nil {
         fmt.Println(err)
     }else {
