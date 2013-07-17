@@ -21,22 +21,21 @@ func Newrouter() *router {
     return &r
 }
 
-func (r *router) RegisterCallback(url string, callback interface{}) error {
-    err := r.registerCallback(url, callback)
-    if err != nil {
-        return err
-    }
+func (r *router) registerCallback(url string, callback interface{}) error {
+    err := r.cbh.registerCallback(url, callback)
 
-    return nil
+    return err
 }
 
 func (r *router) routeRequest(req *http.Request) string {
     cb, err := r.cbh.findCallback(req.URL.Path)
     if err != nil {
-        fmt.Println(err)
+        return "404 - No handler for path: " + req.URL.Path
     }else {
         cbV := reflect.ValueOf(cb)
         args := []reflect.Value{reflect.ValueOf(7)}
         cbV.Call(args)
     }
+
+    return "OK"
 }
