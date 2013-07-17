@@ -14,7 +14,7 @@ type router struct {
     cbh *callbackHandler
 }
 
-func NewRouter() *router {
+func Newrouter() *router {
     cbh := newcallbackHandler()
     r := router{cbh}
 
