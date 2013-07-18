@@ -42,7 +42,7 @@ func (ws *Webserver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func (ws *Webserver) RegisterAllCallbacks(cbs map[string]interface{}) error {
-    for k, v := range(cbs) {
+    for k, v := range cbs {
         err := ws.router.registerCallback(k, v)
         if err != nil {
             return err
