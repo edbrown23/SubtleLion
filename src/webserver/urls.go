@@ -40,11 +40,13 @@ func (cbh *callbackHandler) registerCallback(url string, callback interface{}) e
     return nil
 }
 
-func (cbh *callbackHandler) findCallback(url string) (interface{}, error) {
-    rc, found := cbh.patterns[url]
-
-    if !found {
-        return nil, errors.New("Callback matching " + url + " does not exist")
+func (cbh *callbackHandler) findCallback(url string) (interface{}, []string, error) {
+    for _, v := range cbh.patterns {
+        res := v.pattern.FindStringSubmatch(url)
+        if res != nil {
+            return v.callback, res, nil
+        }
     }
-    return rc.callback , nil
+
+    return nil, nil, errors.New("Callback matching " + url + " does not exist")
 }

@@ -10,10 +10,10 @@ func main() {
     if err != nil {
         panic(err)
     }
-    w.RegisterCallback("/test/", test)
+    w.RegisterCallback("^/test/(.+)$", test)
     w.StartServer()
 }
 
-func test(i int) {
-    fmt.Println(i)
+func test(test string) {
+    fmt.Println(test)
 }

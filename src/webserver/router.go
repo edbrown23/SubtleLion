@@ -1,6 +1,7 @@
 package webserver
 
 import (
+    "fmt"
     "net/http"
     "reflect"
 )
@@ -28,14 +29,24 @@ func (r *router) registerCallback(url string, callback interface{}) error {
 }
 
 func (r *router) routeRequest(req *http.Request) string {
-    cb, err := r.cbh.findCallback(req.URL.Path)
+    cb, subs, err := r.cbh.findCallback(req.URL.Path)
     if err != nil {
         return "404 - No handler for path: " + req.URL.Path
     }else {
+        fmt.Println(subs)
         cbV := reflect.ValueOf(cb)
-        args := []reflect.Value{reflect.ValueOf(7)}
+        // The first arg is the string itself if there's a match
+        args := convertToReflectValues(subs[1:])
         cbV.Call(args)
     }
 
     return "OK"
+}
+
+func convertToReflectValues(args []string) []reflect.Value {
+    o := make([]reflect.Value, len(args))
+    for i := range args {
+        o[i] = reflect.ValueOf(args[i])
+    }
+    return o
 }
