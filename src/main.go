@@ -17,14 +17,16 @@ func main() {
     w.StartServer()
 }
 
-func stringTest(r *http.Request, test string) {
-    fmt.Println(test)
+func stringTest(r *http.Request, test string) webserver.HttpResponse {
+    return webserver.HttpResponse{test, 200}
 }
 
-func numTest(r *http.Request, test int) {
-    fmt.Println(test)
+func numTest(r *http.Request, test int) webserver.HttpResponse {
+    body := fmt.Sprint(test)
+    return webserver.HttpResponse{body, 200}
 }
 
-func stringNumTest(r *http.Request, test1 string, test2 int) {
-    fmt.Printf("%s %d", test1, test2)
+func stringNumTest(r *http.Request, test1 string, test2 int) webserver.HttpResponse {
+    body := fmt.Sprintf("%s %d", test1, test2)
+    return webserver.HttpResponse{body, 200}
 }

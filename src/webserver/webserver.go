@@ -38,7 +38,7 @@ func (ws *Webserver) StartServer() {
 func (ws *Webserver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     fmt.Println("Got request from path: " + r.URL.Path)
     res := ws.router.routeRequest(r)
-    fmt.Fprintf(w, res.body)
+    fmt.Fprintf(w, res.Body)
 }
 
 func (ws *Webserver) RegisterAllCallbacks(cbs map[string]interface{}) error {
