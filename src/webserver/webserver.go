@@ -17,7 +17,7 @@ func NewWebserver(p int) (*Webserver, error) {
         return nil, errors.New("Port must be within 0 - 65535")
     }
 
-    r := Newrouter()
+    r := newrouter()
     w := Webserver{
             router: r,
             port: p}
@@ -38,7 +38,7 @@ func (ws *Webserver) StartServer() {
 func (ws *Webserver) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     fmt.Println("Got request from path: " + r.URL.Path)
     res := ws.router.routeRequest(r)
-    fmt.Fprintf(w, res)
+    fmt.Fprintf(w, res.body)
 }
 
 func (ws *Webserver) RegisterAllCallbacks(cbs map[string]interface{}) error {

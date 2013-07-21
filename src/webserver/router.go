@@ -20,7 +20,7 @@ type router struct {
     cbh *callbackHandler
 }
 
-func Newrouter() *router {
+func newrouter() *router {
     cbh := newcallbackHandler()
     r := router{cbh}
 
@@ -33,21 +33,22 @@ func (r *router) registerCallback(url string, callback interface{}) error {
     return err
 }
 
-func (r *router) routeRequest(req *http.Request) string {
+func (r *router) routeRequest(req *http.Request) HttpResponse {
+    fmt.Println(req.URL.Path)
     cb, subs, err := r.cbh.findCallback(req.URL.Path)
     if err != nil {
-        return "404 - No handler for path: " + req.URL.Path
-    }else {
-        fmt.Println(subs)
-        cbV := reflect.ValueOf(cb)
-        fmt.Println(reflect.TypeOf(cb))
-        // The first arg is the string itself if there's a match
-        args := convertToReflectValues(subs)
-        args[0] = reflect.ValueOf(req)
-        cbV.Call(args)
+        return HttpResponse{"No handler for path: " + req.URL.Path, 404}
     }
 
-    return "OK"
+    fmt.Println(subs)
+    cbV := reflect.ValueOf(cb)
+    fmt.Println(reflect.TypeOf(cb))
+    // The first arg is the string itself if there's a match
+    args := convertToReflectValues(subs)
+    args[0] = reflect.ValueOf(req)
+    
+    ret := cbV.Call(args)
+    return reconstructHttpResponse(ret[0])
 }
 
 func convertToReflectValues(args []string) []reflect.Value {
@@ -62,4 +63,11 @@ func convertToReflectValues(args []string) []reflect.Value {
         }
     }
     return o
+}
+
+func reconstructHttpResponse(val reflect.Value) HttpResponse {
+    body := val.Field(0).String()
+    status := val.Field(1).Int()
+
+    return HttpResponse{body, int(status)}
 }
