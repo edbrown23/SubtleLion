@@ -2,23 +2,18 @@ package subtlelion
 
 import (
     "fmt"
-    "image"
-    "io/ioutil"
     "testing"
 )
 
 func TestPerlinNoise(t *testing.T) {
-    boundsRect := image.Rectangle{Min: image.Point{0, 0},
-                                  Max: image.Point{50, 50}}
-    image := image.NewGray(boundsRect)
-    bounds := image.Bounds()
-    for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
-        for x := bounds.Min.X; x < bounds.Max.X; x++ {
-            noise := PerlinNoise(float64(x), float64(y))
-            fmt.Println(noise)
-            image.Pix[y * image.Stride + x] = uint8(noise)
+    for y := -50; y < 50; y++ {
+        for x := -50; x < 50; x++ {
+            noise1 := PerlinNoise(float64(x), float64(y))
+            noise2 := PerlinNoise(float64(x), float64(y))
+            if noise1 != noise2 {
+                fmt.Printf("Noise1 %f Noise2 %f\n", noise1, noise2)
+                t.FailNow()
+            }
         }
     }
-    ioutil.WriteFile("output.jpeg", image.Pix, 0644)
-    t.Fail()
 }

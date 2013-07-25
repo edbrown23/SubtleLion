@@ -2,6 +2,7 @@ package subtlelion
 
 import (
     "math"
+    "math/rand"
 )
 
 
@@ -12,12 +13,8 @@ func cosineInterpolate(a, b, x float64) float64 {
     return a * (1 - f) + b * f
 }
 
-
 func randomNoise(x, y int) float64 {
-    n := x + y * 57
-    n = (n << 13) ^ n
-    temp := 1.0 - ((n * (n * 15731 + 789221) + 1376312589) & 0x7fffffff)
-    return float64(temp) / 1073741824.0
+    return rand.Float64()
 }
 
 func smoothNoise(x, y float64) float64 {
@@ -47,7 +44,7 @@ func interpolatedNoise(x, y float64) float64 {
 
 func PerlinNoise(x, y float64) float64 {
     total := 0.0
-    persistence := 5.0
+    persistence := 0.7
     octaves := 8
 
     for i := 0; i < octaves; i++ {
@@ -57,5 +54,5 @@ func PerlinNoise(x, y float64) float64 {
         total += interpolatedNoise(x * frequency, y * frequency) * amplitude
     }
 
-    return total
+    return total / 1.7
 }
