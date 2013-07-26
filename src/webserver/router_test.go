@@ -11,10 +11,10 @@ func TestRouteValidRequest(t *testing.T) {
     
     hr, _ := http.NewRequest("GET", "http://localhost:8000/test/waffle", nil)
     res := ro.routeRequest(hr)
-    if res.body != "waffle" {
+    if res.Body != "waffle" {
         t.Fail()
     }
-    if res.status != 200 {
+    if res.Status != 200 {
         t.Fail()
     }
 }
@@ -25,10 +25,10 @@ func TestRouteInvalidRequest(t *testing.T) {
     
     hr, _ := http.NewRequest("GET", "http://localhost:8000/test/waffle/cheese", nil)
     res := ro.routeRequest(hr)
-    if res.body != "No handler for path: /test/waffle/cheese" {
+    if res.Body != "No handler for path: /test/waffle/cheese" {
         t.Fail()
     }
-    if res.status != 404 {
+    if res.Status != 404 {
         t.Fail()
     }
 }

@@ -1,38 +1,36 @@
 package webserver
 
 import (
-    "errors"
     "fmt"
     "net/http"
-    "strconv"
 )
 
 type Webserver struct {
     router *router
-    port int
+    port string
+    tokens chan string
 }
 
-func NewWebserver(p int) (*Webserver, error) {
-    if p > 65535 || p < 0 {
-        return nil, errors.New("Port must be within 0 - 65535")
-    }
-
+func NewWebserver(p string) (*Webserver, error) {
     r := newrouter()
     w := Webserver{
             router: r,
-            port: p}
+            port: p,
+            tokens: make(chan string)}
     return &w, nil
 }
 
 func (ws *Webserver) StartServer() {
     http.Handle("/", ws)
-    ps := ":" + strconv.Itoa(ws.port)
 
-    fmt.Println("Starting server on port " + ps)
-    err := http.ListenAndServe(ps, nil)
-    if err != nil {
-        fmt.Println(err)
+    fmt.Println("Starting server on port " + ws.port)
+    go http.ListenAndServe(ws.port, nil)
+    running := true
+    for running {
+        token := <-ws.tokens
+        fmt.Println("Webserver got token " + token)
     }
+
 }
 
 func (ws *Webserver) ServeHTTP(w http.ResponseWriter, r *http.Request) {

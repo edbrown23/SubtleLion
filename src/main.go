@@ -7,14 +7,16 @@ import (
 )
 
 func main() {
-    w, err := webserver.NewWebserver(8080)
-    if err != nil {
-        panic(err)
-    }
-    w.RegisterCallback("^/test/([a-zA-Z]+)$", stringTest)
-    w.RegisterCallback("^/test/([\\d]+)$", numTest)
-    w.RegisterCallback("^/test/([\\w]+)/([\\d]+)$", stringNumTest)
-    w.StartServer()
+    // w, err := webserver.NewWebserver("8080")
+    // if err != nil {
+    //     panic(err)
+    // }
+    // w.RegisterCallback("^/test/([a-zA-Z]+)$", stringTest)
+    // w.RegisterCallback("^/test/([\\d]+)$", numTest)
+    // w.RegisterCallback("^/test/([\\w]+)/([\\d]+)$", stringNumTest)
+    // w.StartServer()
+    s := webserver.NewServerManager("9500")
+    s.RunServer()
 }
 
 func stringTest(r *http.Request, test string) webserver.HttpResponse {
